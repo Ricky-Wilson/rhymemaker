@@ -1,45 +1,93 @@
-import nltk
+import wordsmith
 
-entries = nltk.corpus.cmudict.entries()
+def nearSyllableScore(syllable1, syllable2):
+	if (syllable1[0] == syllable2[0]) and (syllable1[1] == syllable2[1]):
+		return 1
+	elif (syllable1[0] != 1 and syllable2[0] != 1):
+		if ((syllable1[1][:2] == 'IH' and syllable2[1][:2] == 'AH') or (syllable1[1][:2] == 'AH' and syllable2[1][:2] == 'IH')):
+			return 0.5
 
-def getStress(pron):
-	stress = []
-	for phone in pron:
-		for char in phone:
-			if char.isdigit():
-				stress.append([int(char),phone])
+	return -1
 
-	return stress
+def nearConsonantScore(cons1, cons2):
+	if (cons1 == cons2):
+		return 1
+	else:
+		return 0
 
-def getPron(inputWord):
-	inputPron = []
+def rhyme(word, maxnum):
+	rhymes = getNearRhymes(word)
+	output = []
 
-	for word,pron in entries:
-	 if word==inputWord:
-	 	inputPron = pron
+	count = 0
+	for i in range(len(rhymes)):
+		output.append(rhymes[i][0])
+		count += 1
+		if count == maxnum:
+			break
 
-	return inputPron
+	return output
 
 def getNearRhymes(inWord):
-	inPron = getPron(inWord)
-	inStress = getStress(inPron)
-	stressSize = len(inStress)
 	rhymes = []
-	for word, pron in entries:
-		stress = getStress(pron)
-		if (inWord == word):
-			continue
-		if len(stress) != stressSize:
-			continue
-		if (stress[-1][1] != inStress[-1][1]):
-			continue
+	for word in wordsmith.dictionary.keys():
+		score = nearRhymeScore(word, inWord)
+		if score > 0:
+			rhymes.append((word, score))
 
-		for i in range(len(stress)):
-			if ((inStress[i][0] > 0) and (stress[i][1] == inStress[i][1])):
-				rhymes.append(word)
+	
+	return sorted(rhymes, key=lambda t: t[1], reverse=True)
 
+def nearRhymeScore(word1, word2):
+	if word1 == word2:
+		return -1
 
-	return rhymes
+	pron1 = wordsmith.getPron(word1)
+	pron2 = wordsmith.getPron(word2)
+
+	if not pron1:
+		print ("Could not recognize " + word1)
+		return -1
+
+	if not pron2:
+		print ("Could not recognize " + word2)
+		return -1
+
+	stress1 = wordsmith.getStress(pron1)
+	stress2 = wordsmith.getStress(pron2)
+
+	if len(stress1) != len(stress2):
+		# print ("Different syllabled words")
+		return -1
+	if (nearSyllableScore(stress1[-1], stress2[-1]) < 0):
+		# print ("Last syllable not similar enough")
+		return -1
+
+	match = 0
+
+	for i in range(len(stress1)):
+		# Check same stress pattern of word
+		if (stress1[i][0] != stress2[i][0]):
+			# print("Syllable stressing is different on syllable #%d", i)
+			match = -1
+			break
+		# Check that important stresses rhyme
+		elif ((stress1[i][0] > 0) and (stress1[i][1] != stress2[i][1])):
+			# print("Important Syllable %d does not rhyme", i)
+			match = -1
+			break
+		# Check surrounding consonants for closeness
+		else:
+			match += nearSyllableScore(stress1[i], stress2[i])
+			if (stress1[i][2] > 0) and (stress2[i][2] > 0) and (stress1[i][2] < len(pron1) - 1) and (stress2[i][2] < len(pron2)-1):
+				index1 = stress1[i][2]
+				index2 = stress2[i][2]
+
+				# match += nearConsonantScore(pron1[index1-1], pron2[index2-1])
+				match += nearConsonantScore(pron1[index1+1], pron2[index2+1])
+
+	return match
+
 
 
 
