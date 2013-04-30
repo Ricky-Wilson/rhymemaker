@@ -15,6 +15,9 @@ def getStress(pron):
 	return stress
 
 def getPron(inputWord):
+	if not inputWord in dictionary:
+		return False
+
 	inputPron = dictionary[inputWord]
 
 	if inputPron[-1] == 'NG' and len(getStress(inputPron)) > 1:
