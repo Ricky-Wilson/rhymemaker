@@ -2,21 +2,41 @@
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='reset.css') }}">
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='bootstrap.css') }}">
-<div id='main-container'>
-	<div class="row-fluid">
-		<div class="span8 offset2" id='form-container'>
-			<form class="container" action="rhyme" method="get" name="rhyme">
-				<div class="row-fluid">
-				<input id="rhyme-input" type="text" placeholder="Rhyme a Word" name="word">
-				<input type="submit" value="" id="rhyme-button">
+<link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+<div class="wrapper">
+	<div id='main-container'>
+		<div class="page-header" id="logo">
+			<h1 id="header">Freestyl.in</h1>
+			<h3 id="subheader">The ultimate rap rhyme resource</h3>
+		</div>
+		<div class="row-fluid">
+			<div class="span8 offset2" id='form-container'>
+				<form class="container" action="rhyme" method="get" name="rhyme" style="width:100%">
+					<div class="row-fluid">
+					<input id="rhyme-input" type="text" placeholder="Rhyme a Word" name="word">
+					<input type="submit" value="" id="rhyme-button">
+				</div>
+				<div id="formhint">
+					eg. Try "mom's spaghetti"
+				</div>
+			</div>
+		</div>
+		{% if word %}
+		<div class="row-fluid" id="resultinfo">
+			<div class="span10 offset1">
+				<p>Rhymes you can use with <span id="queried">{{word}}:</span></p>
+			</div>
+		</div>
+		{% endif %}
+		<div class="row-fluid">
+			<div class="span10 offset1" id="output">
+				{% for rhyme in rhymes %}
+					<a href="http://www.urbandictionary.com/define.php?term={{rhyme}}">{{rhyme}}</a>&nbsp;&nbsp;
+				{% endfor %}
 			</div>
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div class="span10 offset1">
-			{% for rhyme in rhymes %}
-				<p>{{ rhyme }}</p>
-			{% endfor %}
-		</div>
-	</div>
+</div>
+<div class="footer">
+	<p>Created by <a href="http://www.yatchoi.me">Yat Choi</a><br>&copy; 2013</p>
 </div>
