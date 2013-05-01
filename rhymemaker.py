@@ -1,4 +1,8 @@
 import wordsmith
+import datareader
+
+wordlist = wordsmith.dictionary.keys()
+wordlist.extend(datareader.collocationEntries())
 
 def rhyme(word, maxnum=50):
 	rhymes = getNearRhymes(word.lower())
@@ -18,13 +22,15 @@ def getNearRhymes(inputString):
 	rhymes = []
 	pron1 = tokenize(inputString)
 
-	for word in wordsmith.dictionary.keys():
+	for word in wordlist:
 		if inputString == word:
 			continue
 		elif "'" in word:
 			continue
 
 		pron2 = tokenize(word)
+		if not pron2:
+			continue
 		
 		score = nearRhymeScore(pron1, pron2)
 		if score > 0:
