@@ -1,10 +1,9 @@
 import wordsmith
 import datareader
+import math
+import time
 
-wordlist = wordsmith.dictionary.keys()
-wordlist.extend(datareader.collocationEntries())
-
-def rhyme(word, maxnum=50):
+def rhyme(word, maxnum=75):
 	rhymes = getNearRhymes(word.lower())
 
 	output = []
@@ -20,15 +19,16 @@ def rhyme(word, maxnum=50):
 
 def getNearRhymes(inputString):
 	rhymes = []
-	pron1 = tokenize(inputString)
+	pron1 = wordsmith.tokenize(inputString)
 
-	for word in wordlist:
+	for word in wordsmith.bucket.getListFromWord(inputString):
+		word = str(word)
 		if inputString == word:
 			continue
 		elif "'" in word:
 			continue
 
-		pron2 = tokenize(word)
+		pron2 = wordsmith.tokenize(word)
 		if not pron2:
 			continue
 		
@@ -40,11 +40,13 @@ def getNearRhymes(inputString):
 	return sorted(rhymes, key=lambda t: t[1], reverse=True)
 
 def nearRhymeScore(pron1, pron2):
-
 	stress1 = wordsmith.getStress(pron1)
 	stress2 = wordsmith.getStress(pron2)
 
 	if not stress1 or not stress2:
+		return -1
+
+	if ((len(stress1) - len(stress2)) > 1):
 		return -1
 
 	match = 0
@@ -69,6 +71,9 @@ def nearRhymeScore(pron1, pron2):
 		if (score < 0):
 			match = -1
 			break
+		elif (i==1) and (score*1.5 < 1):
+			match = -1
+			break
 
 		else:
 			consonantScore = 0
@@ -83,6 +88,7 @@ def nearRhymeScore(pron1, pron2):
 				score *= 1.5
 				if score > 1:
 					consonantScore *= 2.5
+
 				# if i == 2:
 				# 	consonantScore *=1.5
 
@@ -92,29 +98,17 @@ def nearRhymeScore(pron1, pron2):
 			# print score
 			# print consonantScore
 
-			match+=score
+			match+= score
 			match+= consonantScore
 
 	return match
-
-def tokenize(word):
-	pron = []
-
-	wordsplit = word.split()
-	for w in wordsplit:
-		if (not w in wordsmith.dictionary):
-			return []
-		else:
-			pron.extend(wordsmith.getPron(w))
-
-	return pron
 
 def check(inputString, word):
 	if inputString == word:
 		return -1
 
-	pron1 = tokenize(inputString)
-	pron2 = tokenize(word)
+	pron1 = wordsmith.tokenize(inputString)
+	pron2 = wordsmith.tokenize(word)
 
 	print pron1
 	print pron2

@@ -1,3 +1,5 @@
+import json
+
 def collocationEntries():
 	f = open('./nltk_data/collocations', 'r')
 
@@ -10,3 +12,8 @@ def collocationEntries():
 	# 	entries.append(line[:-1])
 
 	return entries
+
+def loadBucket():
+	f = open('./nltk_data/bucketstore', 'r')
+	bucketdict = json.load(f)
+	return bucketdict
