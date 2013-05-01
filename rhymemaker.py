@@ -122,10 +122,10 @@ def nearRhymeScore(pron1, pron2):
 						consonantScore *= 2.5
 				# if i == 2:
 				# 	consonantScore *=1.5
-				print stress1[-i]
-				print stress2[-i]
-				print score
-				print consonantScore
+				# print stress1[-i]
+				# print stress2[-i]
+				# print score
+				# print consonantScore
 
 				match+=score
 				match+= consonantScore
