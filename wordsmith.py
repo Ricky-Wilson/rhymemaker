@@ -9,12 +9,13 @@ dictionary = dict(entries)
 
 pronDict = dict()
 bucket = PhoneticBucket()
-bucket.setBucket(datareader.loadBucket())
 
 wordlist = dictionary.keys()
-wordlist.extend(datareader.collocationEntries())
 
 def setup():
+	bucket.setBucket(datareader.loadBucket())
+	wordlist.extend(datareader.collocationEntries())
+
 	for w in wordlist:
 		addStress(tokenize(w))
 
@@ -57,3 +58,6 @@ def tokenize(word):
 			pron.extend(getPron(w))
 
 	return pron
+
+def getRelevantWords(word):
+	return bucket.getListFromWord(word)

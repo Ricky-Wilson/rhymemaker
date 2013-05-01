@@ -25,9 +25,7 @@ class PhoneticBucket:
 	def getListFromWord(self,word):
 		stress = wordsmith.getStress(wordsmith.tokenize(word))
 		phone = stress[-1][1]
-		if phone not in self.buckets.keys():
-			self.buckets[phone] = []
-		return self.buckets[phone]
+		return self.get(phone)
 
 
 

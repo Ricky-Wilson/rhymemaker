@@ -3,6 +3,14 @@ html,body {
 	font-family: 'Quicksand', sans-serif;
 }
 
+#abouttext {
+	font-family: 'Quicksand', sans-serif;
+	margin-bottom: 30px;
+	padding: 10px;
+	font-size: 16px;
+	line-height: 1.5;
+}
+
 .footer {
 	position: relative;
 	clear: both;
@@ -116,5 +124,6 @@ html,body {
 	font-size: 12px;
 	color: gray;
 	left: 20px;
+	width: 70%;
 	position: relative;
 }

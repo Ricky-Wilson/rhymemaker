@@ -3,6 +3,8 @@ import datareader
 import math
 import time
 
+wordsmith.setup()
+
 def rhyme(word, maxnum=75):
 	rhymes = getNearRhymes(word.lower())
 
@@ -21,7 +23,11 @@ def getNearRhymes(inputString):
 	rhymes = []
 	pron1 = wordsmith.tokenize(inputString)
 
-	for word in wordsmith.bucket.getListFromWord(inputString):
+	words = wordsmith.getRelevantWords(inputString)
+	if not words:
+		return []
+
+	for word in words:
 		word = str(word)
 		if inputString == word:
 			continue
