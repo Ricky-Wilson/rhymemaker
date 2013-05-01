@@ -1,52 +1,7 @@
 import wordsmith
 
-def nearSyllableScore(syllable1, syllable2):
-	if ((syllable1[0] == syllable2[0]) and (syllable1[1] == syllable2[1])):
-		return 2
-
-	score = -1
-	if (syllable1[1][:2] == syllable2[1][:2]):
-		score = 1.8
-	elif ((syllable1[1][:2] == 'IH' and syllable2[1][:2] == 'AH') or (syllable1[1][:2] == 'AH' and syllable2[1][:2] == 'IH')):
-		score = 0.5
-	elif ((syllable1[1][:2] == 'IH' and syllable2[1][:2] == 'IY') or (syllable1[1][:2] == 'IY' and syllable2[1][:2] == 'IH')):
-		score = 0.3
-	elif ((syllable1[1][:2] == 'AA' and syllable2[1][:2] == 'AO') or (syllable1[1][:2] == 'AO' and syllable2[1][:2] == 'AA')):
-		score = 0.5
-	elif ((syllable1[1][:2] == 'AH' and syllable2[1][:2] == 'AO') or (syllable1[1][:2] == 'AO' and syllable2[1][:2] == 'AH')):
-		score = 0.5
-	elif ((syllable1[1][:2] == 'AH' and syllable2[1][:2] == 'AY') or (syllable1[1][:2] == 'AY' and syllable2[1][:2] == 'AH')):
-		score = 0.2
-	elif ((syllable1[1][:2] == 'AY' and syllable2[1][:2] == 'AE') or (syllable1[1][:2] == 'AE' and syllable2[1][:2] == 'AY')):
-		score = 0.5
-	elif ((syllable1[1][:2] == 'AO' and syllable2[1][:2] == 'AE') or (syllable1[1][:2] == 'AE' and syllable2[1][:2] == 'AO')):
-		score = 0.5
-	elif ((syllable1[1][:2] == 'EY' and syllable2[1][:2] == 'AH') or (syllable1[1][:2] == 'AH' and syllable2[1][:2] == 'EY')):
-		score = 0.25
-
-	if (syllable1[0] == 1 and syllable2[0] == 1):
-		score *= 0.25
-	elif (syllable1[0] == 1 or syllable2[0] == 1):
-		score *= 0.75
-	elif(syllable1[0] != syllable2[0]):
-		score *= 0.8
-
-	return score
-
-def nearConsonantScore(cons1, cons2):
-	if (cons1 == cons2):
-		return 1.2
-	elif ((cons1 == 'T' and cons2 == 'D') or (cons1 == 'D' and cons2 == 'T')):
-		return 1
-	elif ((cons1 == 'S' and cons2 == 'Z') or (cons1 == 'Z' and cons2 == 'S')):
-		return 1
-	elif ((cons1 == 'S' and cons2 == 'T') or (cons1 == 'T' and cons2 == 'S')):
-		return 0.4
-	else:
-		return 0
-
 def rhyme(word, maxnum=50):
-	rhymes = getNearRhymes(word)
+	rhymes = getNearRhymes(word.lower())
 
 	output = []
 
@@ -155,5 +110,50 @@ def check(inputString, word):
 	print pron2
 		
 	return nearRhymeScore(pron1, pron2)
+
+def nearSyllableScore(syllable1, syllable2):
+	if ((syllable1[0] == syllable2[0]) and (syllable1[1] == syllable2[1])):
+		return 2
+
+	score = -1
+	if (syllable1[1][:2] == syllable2[1][:2]):
+		score = 1.8
+	elif ((syllable1[1][:2] == 'IH' and syllable2[1][:2] == 'AH') or (syllable1[1][:2] == 'AH' and syllable2[1][:2] == 'IH')):
+		score = 0.5
+	elif ((syllable1[1][:2] == 'IH' and syllable2[1][:2] == 'IY') or (syllable1[1][:2] == 'IY' and syllable2[1][:2] == 'IH')):
+		score = 0.3
+	elif ((syllable1[1][:2] == 'AA' and syllable2[1][:2] == 'AO') or (syllable1[1][:2] == 'AO' and syllable2[1][:2] == 'AA')):
+		score = 0.5
+	elif ((syllable1[1][:2] == 'AH' and syllable2[1][:2] == 'AO') or (syllable1[1][:2] == 'AO' and syllable2[1][:2] == 'AH')):
+		score = 0.5
+	elif ((syllable1[1][:2] == 'AH' and syllable2[1][:2] == 'AY') or (syllable1[1][:2] == 'AY' and syllable2[1][:2] == 'AH')):
+		score = 0.2
+	elif ((syllable1[1][:2] == 'AY' and syllable2[1][:2] == 'AE') or (syllable1[1][:2] == 'AE' and syllable2[1][:2] == 'AY')):
+		score = 0.5
+	elif ((syllable1[1][:2] == 'AO' and syllable2[1][:2] == 'AE') or (syllable1[1][:2] == 'AE' and syllable2[1][:2] == 'AO')):
+		score = 0.5
+	elif ((syllable1[1][:2] == 'EY' and syllable2[1][:2] == 'AH') or (syllable1[1][:2] == 'AH' and syllable2[1][:2] == 'EY')):
+		score = 0.25
+
+	if (syllable1[0] == 1 and syllable2[0] == 1):
+		score *= 0.25
+	elif (syllable1[0] == 1 or syllable2[0] == 1):
+		score *= 0.75
+	elif(syllable1[0] != syllable2[0]):
+		score *= 0.8
+
+	return score
+
+def nearConsonantScore(cons1, cons2):
+	if (cons1 == cons2):
+		return 1.2
+	elif ((cons1 == 'T' and cons2 == 'D') or (cons1 == 'D' and cons2 == 'T')):
+		return 1
+	elif ((cons1 == 'S' and cons2 == 'Z') or (cons1 == 'Z' and cons2 == 'S')):
+		return 1
+	elif ((cons1 == 'S' and cons2 == 'T') or (cons1 == 'T' and cons2 == 'S')):
+		return 0.4
+	else:
+		return 0
 
 
