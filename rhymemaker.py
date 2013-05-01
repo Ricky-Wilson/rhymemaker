@@ -65,25 +65,29 @@ def nearRhymeScore(pron1, pron2):
 			break
 
 		else:
+			consonantScore = 0
 			if (stress1[-i][2] > 0) and (stress2[-i][2] > 0) and (stress1[-i][2] < len(pron1) - 1) and (stress2[-i][2] < len(pron2)-1):
 				index1 = stress1[-i][2]
 				index2 = stress2[-i][2]
 
 				# Check surrounding consonants for closeness
 				consonantScore = nearConsonantScore(pron1[index1+1], pron2[index2+1])
-				if i == 1:
-					score *= 1.5
-					if score > 1:
-						consonantScore *= 2.5
+			
+			if i == 1:
+				score *= 1.5
+				if score > 1:
+					consonantScore *= 2.5
 				# if i == 2:
 				# 	consonantScore *=1.5
-				# print stress1[-i]
-				# print stress2[-i]
-				# print score
-				# print consonantScore
 
-				match+=score
-				match+= consonantScore
+			# print i
+			# print stress1[-i]
+			# print stress2[-i]
+			# print score
+			# print consonantScore
+
+			match+=score
+			match+= consonantScore
 
 	return match
 
