@@ -1,9 +1,9 @@
-import wordsmith
-import datareader
+import Wordsmith
+import DataReader
 import math
 import time
 
-wordsmith.setup()
+Wordsmith.setup()
 
 def rhyme(word, maxnum=75):
 	rhymes = getNearRhymes(word.lower())
@@ -21,9 +21,9 @@ def rhyme(word, maxnum=75):
 
 def getNearRhymes(inputString):
 	rhymes = []
-	pron1 = wordsmith.tokenize(inputString)
+	pron1 = Wordsmith.tokenize(inputString)
 
-	words = wordsmith.getRelevantWords(inputString)
+	words = Wordsmith.getRelevantWords(inputString)
 	if not words:
 		return []
 
@@ -34,7 +34,7 @@ def getNearRhymes(inputString):
 		elif "'" in word:
 			continue
 
-		pron2 = wordsmith.tokenize(word)
+		pron2 = Wordsmith.tokenize(word)
 		if not pron2:
 			continue
 		
@@ -46,8 +46,8 @@ def getNearRhymes(inputString):
 	return sorted(rhymes, key=lambda t: t[1], reverse=True)
 
 def nearRhymeScore(pron1, pron2):
-	stress1 = wordsmith.getStress(pron1)
-	stress2 = wordsmith.getStress(pron2)
+	stress1 = Wordsmith.getStress(pron1)
+	stress2 = Wordsmith.getStress(pron2)
 
 	if not stress1 or not stress2:
 		return -1
@@ -113,8 +113,8 @@ def check(inputString, word):
 	if inputString == word:
 		return -1
 
-	pron1 = wordsmith.tokenize(inputString)
-	pron2 = wordsmith.tokenize(word)
+	pron1 = Wordsmith.tokenize(inputString)
+	pron2 = Wordsmith.tokenize(word)
 
 	print pron1
 	print pron2

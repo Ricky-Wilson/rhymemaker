@@ -1,5 +1,5 @@
 import nltk
-import datareader
+import DataReader
 from PhoneticBucket import PhoneticBucket
 
 nltk.data.path.insert(0,'./nltk_data/')
@@ -13,8 +13,8 @@ bucket = PhoneticBucket()
 wordlist = dictionary.keys()
 
 def setup():
-	bucket.setBucket(datareader.loadBucket())
-	wordlist.extend(datareader.collocationEntries())
+	bucket.setBucket(DataReader.loadBucket())
+	wordlist.extend(DataReader.collocationEntries())
 
 	for w in wordlist:
 		addStress(tokenize(w))

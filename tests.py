@@ -1,10 +1,10 @@
-import rhymemaker
+import RhymeMaker
 import time
-import wordsmith
+import Wordsmith
 
 def timed(str):
 	t0 = time.time()
-	results = rhymemaker.rhyme(str)
+	results = RhymeMaker.rhyme(str)
 	t1 = time.time()
 
 	print results

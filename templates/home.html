@@ -16,28 +16,24 @@
 		</div>
 		<div class="row-fluid">
 			<div class="span8 offset2" id='form-container'>
-				<form class="container" action="rhyme" method="get" name="rhyme" style="width:100%">
+				<form class="container" style="width:100%">
 					<div class="row-fluid">
 					<input id="rhyme-input" type="text" placeholder="Try it out yourself!" name="word">
-					<input type="submit" value="" id="rhyme-button">
+					<input value="" id="rhyme-button">
 				</div>
 				<div id="formhint">
 					Want to get fancy? Try using multiple words: "killing rhymes", "solo flow"
 				</div>
 			</div>
 		</div>
-		{% if word %}
 		<div class="row-fluid" id="resultinfo">
 			<div class="span10 offset1">
-				<p>Rhymes you can use with <span id="queried">{{word}}:</span></p>
+				<p>Rhymes you can use with <span id="queried"></span>:</p>
 			</div>
 		</div>
-		{% endif %}
 		<div class="row-fluid">
 			<div class="span10 offset1" id="output">
-				{% for rhyme in rhymes %}
-					<a href="http://localhost:5000/rhyme?word={{rhyme}}">{{rhyme}}</a>&nbsp;&nbsp;
-				{% endfor %}
+
 			</div>
 		</div>
 	</div>
@@ -45,3 +41,9 @@
 <div class="footer">
 	<p>Created by <a href="http://www.yatchoi.me">Yat Choi</a><br>&copy; 2013</p>
 </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+<script src="{{ url_for('static', filename='javascript/rhyme.js') }}"></script>

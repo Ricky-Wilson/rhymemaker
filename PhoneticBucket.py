@@ -1,11 +1,11 @@
-import wordsmith
+import Wordsmith
 
 class PhoneticBucket:
 	def __init__(self):
 		self.buckets = dict()
 
 	def add(self, word):
-		stress = wordsmith.getStress(wordsmith.tokenize(word))
+		stress = Wordsmith.getStress(Wordsmith.tokenize(word))
 		if (len(stress) < 1):
 			return False
 		phone = stress[-1][1]
@@ -23,7 +23,9 @@ class PhoneticBucket:
 		self.buckets = bucket
 
 	def getListFromWord(self,word):
-		stress = wordsmith.getStress(wordsmith.tokenize(word))
+		stress = Wordsmith.getStress(Wordsmith.tokenize(word))
+		if (len(stress) < 1):
+			return False
 		phone = stress[-1][1]
 		return self.get(phone)
 

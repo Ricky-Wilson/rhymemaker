@@ -1,15 +1,15 @@
 import nltk
-import datareader
-import wordsmith
+import DataReader
+import Wordsmith
 import json
 
 entries = nltk.corpus.cmudict.entries()
 dictionary = dict(entries)
 
-bucket = wordsmith.bucket
+bucket = Wordsmith.bucket
 
 wordlist = dictionary.keys()
-wordlist.extend(datareader.collocationEntries())
+wordlist.extend(DataReader.collocationEntries())
 
 def seed():
 	count = 0
@@ -18,8 +18,8 @@ def seed():
 
 		count+=1
 
-		if count % 13000 == 0:
-			print str((count/13000)*10) + " percent done loading"
+		if count % 20000 == 0:
+			print str((count/20000)*10) + " percent done loading"
 
 	f = open('./nltk_data/bucketstore', 'a')
 	f.write(json.dumps(bucket.buckets))

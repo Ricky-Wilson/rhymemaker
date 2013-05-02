@@ -92,13 +92,14 @@ html,body {
 
 #rhyme-button {
 	background-image: url('/static/images/mic.jpg');
-	background-size: 50px;
+	background-size: 52px;
 	border: 0;
 	width: 50px;
 	height: 50px;
 	display: inline;
 	margin-bottom: 8px;
 	opacity: 0.65;
+	cursor: pointer;
 }
 
 #output a {
@@ -126,4 +127,8 @@ html,body {
 	left: 20px;
 	width: 70%;
 	position: relative;
+}
+
+.rhymeword {
+	cursor: pointer;
 }
