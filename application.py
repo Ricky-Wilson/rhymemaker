@@ -9,6 +9,10 @@ app = Flask(__name__)
 def hello_world():
 	return render_template('home.html', word=[], rhymes=[])
 
+@app.route('/pad')
+def pad():
+	return render_template('pad.html', word=[], rhymes=[])
+
 @app.route('/rhyme')
 def ajax_rhyme():
 	word = request.args.get('word','')

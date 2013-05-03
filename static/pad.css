@@ -1,0 +1,36 @@
+
+
+h4 {
+	font-family: 'Quicksand', sans-serif;
+	margin-left: 20px;
+	margin-right: 10px;
+}
+
+#sidebar {
+	border-left: 1px solid lightgrey;
+}
+
+.minheight {
+	min-height: 600px;
+}
+
+#textpad {
+	width: 100%;
+	min-height: 600px;
+	border: none;
+	font-size: 24px;
+	font-family: Helvetica;
+	color: #0088cc;
+	resize: none;
+	line-height: 1.4;
+}
+
+#pad-rhyme-button {
+	width: 100%;
+	height: 50px;
+	margin-top: 20px;
+}
+
+#pad-output {
+	font-size: 16px;
+}
