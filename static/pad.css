@@ -1,5 +1,10 @@
 
 
+p {
+	font-family: 'Quicksand', sans-serif;
+	font-size: 16px;
+}
+
 h4 {
 	font-family: 'Quicksand', sans-serif;
 	margin-left: 20px;
@@ -33,4 +38,8 @@ h4 {
 
 #pad-output {
 	font-size: 16px;
+}
+
+#hinttext {
+	margin-bottom: 10px;
 }
