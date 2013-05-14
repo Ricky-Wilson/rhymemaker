@@ -59,6 +59,7 @@
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script type=text/javascript>
+<script type="text/javascript">
   $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 </script>
+<script src="{{ url_for('static', filename='javascript/rhyme.js') }}"></script>
