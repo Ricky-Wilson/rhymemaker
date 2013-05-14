@@ -57,13 +57,12 @@ html,body {
 	font-weight: bold;
 	margin-left: 60px;
 	display:inline;
-	font-size: 51px;
+	font-size: 40px;
 }
 
 #logo h3 {
 	color: grey;
 	font-family: 'Quicksand';
-	display: inline-block;
 	position: relative;
 	left: 21px;
 	width: 250px;

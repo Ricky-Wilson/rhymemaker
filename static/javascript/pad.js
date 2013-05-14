@@ -23,6 +23,7 @@
 var textpad = document.getElementById("textpad");
 
 var rhymeRequest = function(word) {
+		$("#rhyming-word").html(word);
 		$.ajax({
 			url: "/rhyme?word=" + word,
 			data: word,
@@ -34,7 +35,7 @@ var rhymeRequest = function(word) {
 					var html = "<a class='rhymeword'>" + obj[i] + "</a>\&nbsp;\&nbsp;\t\t\t\t\t"
 					$("#pad-output").append(html);
 				}
-				console.log("succss");
+				console.log("succss" + word);
 			}
 		})
 	};
