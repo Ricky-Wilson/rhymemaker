@@ -45,9 +45,17 @@ var rhymeRequest = function(word) {
 		})
 	};
 
+function encodeHTML(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+}
+
+function makeRequestCall() {
+	var rhymeword = $("#rhyme-input").val();
+	rhymeRequest(encodeHTML(rhymeword));
+}
+
 $("#rhyme-button").click(function() {
-	console.log("click");
-	rhymeRequest($("#rhyme-input").val());
+	makeRequestCall();
 });
 
 $('body').on("click", ".rhymeword", function(e) {
@@ -56,8 +64,9 @@ $('body').on("click", ".rhymeword", function(e) {
 
 $('#rhyme-input').bind('keypress', function(e) {
 	if(e.keyCode==13){
-		rhymeRequest($("#rhyme-input").val());
-		console.log("enter");
+		makeRequestCall();
 	}
 });
+
+
 	
